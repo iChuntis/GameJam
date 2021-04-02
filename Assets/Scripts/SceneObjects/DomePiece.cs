@@ -25,7 +25,7 @@ namespace SceneObjects
         // Start is called before the first frame update
         void Start()
         {
-            GameManager.instance.allDomePieces.Add(gameObject, this);
+            GameSystem.GameManager.instance.allDomePieces.Add(gameObject, this);
             isBroken = false;
             canRepair = false;
             isRepairing = false;
@@ -58,7 +58,7 @@ namespace SceneObjects
                     isBroken = true;
                     allertPoint.SetActive(false);
                     mySpriteRenderer.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-                    GameManager.instance.DomePartChanged(true);
+                    GameSystem.GameManager.instance.DomePartChanged(true);
                     if (coroutine != null)
                     {
                         StopCoroutine(coroutine);

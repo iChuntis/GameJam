@@ -16,9 +16,9 @@ namespace SceneObjects
 
         public void ChooseDomePartToBroke()
         {
-            List<GameObject> unbrokenPieces = GameManager.instance.allDomePieces.Where(x => (!x.Value.isBroken && !x.Value.isRepairing)).Select(x => x.Key).ToList();
+            List<GameObject> unbrokenPieces = GameSystem.GameManager.instance.allDomePieces.Where(x => (!x.Value.isBroken && !x.Value.isRepairing)).Select(x => x.Key).ToList();
             int randomPart = Random.Range(0, unbrokenPieces.Count);
-            GameManager.instance.allDomePieces[unbrokenPieces[randomPart]].InitDamage();
+            GameSystem.GameManager.instance.allDomePieces[unbrokenPieces[randomPart]].InitDamage();
         }
     }
 }

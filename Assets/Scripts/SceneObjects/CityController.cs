@@ -43,7 +43,7 @@ namespace SceneObjects
                     continue;
                 }
 
-                foreach (KeyValuePair<GameObject, HomeObject> kvp in GameManager.instance.allHomes)
+                foreach (KeyValuePair<GameObject, HomeObject> kvp in GameSystem.GameManager.instance.allHomes)
                 {
                     if (kvp.Value.myCollider.bounds.Contains(new Vector2(x, y)))
                     {
