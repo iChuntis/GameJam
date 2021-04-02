@@ -11,7 +11,7 @@ public class UI_Manager : MonoBehaviour
 
     private int volunteersCountToSend;
 
-    private GameSystem gameManager;
+    private GameA gameManager;
 
     private Vector2 positionToGo;
 
@@ -19,7 +19,7 @@ public class UI_Manager : MonoBehaviour
     {
         Messenger<UI_Manager>.Broadcast("InitUI", this);
 
-        gameManager = GetComponent<GameSystem>();
+        gameManager = GetComponent<GameA>();
     }
 
     private void Update()
