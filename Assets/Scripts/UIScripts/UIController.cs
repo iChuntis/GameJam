@@ -21,10 +21,14 @@ namespace UserInterface
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetDomePopBalance(float pop, float dome)
         {
+            gameProgress.SetValues(pop, dome);
+        }
 
+        public void SetVolunteersNum(int vNum)
+        {
+            gameProgress.SetVolunteersNum(vNum);
         }
     }
 }

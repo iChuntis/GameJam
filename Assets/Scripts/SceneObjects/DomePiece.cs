@@ -9,6 +9,7 @@ namespace SceneObjects
     {
         public bool isBroken;
         public bool canRepair;
+        public bool isRepairing;
         public float timeToRepair;
 
         public Vector3 myPosition;
@@ -27,6 +28,7 @@ namespace SceneObjects
             GameManager.instance.allDomePieces.Add(gameObject, this);
             isBroken = false;
             canRepair = false;
+            isRepairing = false;
             deltaTimer = 0.0f;
 
             myCollider = GetComponent<Collider2D>();
@@ -54,7 +56,9 @@ namespace SceneObjects
                     deltaTimer = 0.0f;
                     canRepair = false;
                     isBroken = true;
-                    mySpriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    allertPoint.SetActive(false);
+                    mySpriteRenderer.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                    GameManager.instance.DomePartChanged(true);
                     if (coroutine != null)
                     {
                         StopCoroutine(coroutine);
@@ -66,8 +70,10 @@ namespace SceneObjects
         public void SetRepaired()
         {
             canRepair = false;
+            isRepairing = false;
             deltaTimer = 0.0f;
             coroutine = null;
+            allertPoint.SetActive(false);
         }
 
         // Возможно, начало ремонта будет производиться по другому
@@ -77,6 +83,7 @@ namespace SceneObjects
             {
                 /*
                 float timeR = GameManager.instance.player[col.gameObject].GetRepairTime();
+                isRepairing = true;
                 coroutine = StartRepair(timeR);
                 StartCoroutine(coroutine);
                 */

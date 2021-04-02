@@ -11,6 +11,8 @@ namespace UserInterface
         public Image peopleBarImg;
         public Image domeBarImg;
 
+        public Text volunteersVol;
+
         float currentPeopleBar;
         float currentDomeBar;
         float deltaChangeBar;
@@ -23,12 +25,18 @@ namespace UserInterface
 
             peopleBarImg.fillAmount = currentPeopleBar;
             domeBarImg.fillAmount = currentDomeBar;
+            volunteersVol.text = "Volunteers: 0";
         }
 
         public void SetValues(float peopleBar, float domeBar)
         {
             StopAllCoroutines();
             StartCoroutine(ChangeBarAnim(peopleBar, domeBar));
+        }
+
+        public void SetVolunteersNum(int num)
+        {
+            volunteersVol.text = "Volunteers: " + num.ToString();
         }
 
         IEnumerator ChangeBarAnim(float peopleBar, float domeBar)

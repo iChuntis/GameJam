@@ -8,6 +8,7 @@ namespace SceneObjects
     public class HomeObject : SceneObject
     {
         // Start is called before the first frame update
+        public Collider2D myCollider;
         void Start()
         {
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SceneObjects;
 
 namespace GameSystem
 {
@@ -16,8 +17,13 @@ namespace GameSystem
 
         float timeOfNextEvent;
         float timeCount;
+
+        DomeController domeController;
+        CityController cityController;
         void Start()
         {
+            domeController = FindObjectOfType<DomeController>();
+            cityController = FindObjectOfType<CityController>();
             timeOfNextEvent = Random.Range(timeEventInterval.x, timeEventInterval.y);
         }
 
@@ -29,8 +35,37 @@ namespace GameSystem
             {
                 timeCount = 0;
                 timeOfNextEvent = Random.Range(timeEventInterval.x, timeEventInterval.y);
+
                 // Decide which event instantiate
+                float peopleEvent = Random.Range(0, 1);
+                float domeEvent = Random.Range(0, 1);
+
+                if (peopleEvent < savePeopleProb)
+                {
+                    StartCoroutine(MakeSavePeopleEvent());
+                }
+
+                if (domeEvent < damageDomeProb)
+                {
+                    StartCoroutine(MakeDomeDamageEvent());
+                }
             }
+        }
+
+        IEnumerator MakeSavePeopleEvent()
+        {
+            // Check where we can place the people for to save
+            cityController.SetPlaceToSavePeople();
+
+            yield return null;
+        }
+
+        IEnumerator MakeDomeDamageEvent()
+        {
+            // Check, which part of dome is broken
+            domeController.ChooseDomePartToBroke();
+
+            yield return null;
         }
     }
 }

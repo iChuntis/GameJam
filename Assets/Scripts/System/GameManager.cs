@@ -26,10 +26,12 @@ namespace GameSystem
 
 
         // Число всех участков купола
+        [SerializeField]
         int domePieces;
         // Число здоровых участков купола
         int domeUnbrokenPieces;
         // Число населения
+        [SerializeField]
         int populationVol;
         // Число волонтеров
         int volunteerVol;
@@ -73,8 +75,28 @@ namespace GameSystem
             allHomes = new Dictionary<GameObject, HomeObject>();
             //allPools = new Dictionary<GameObject, PoolObject>();
             allDomePieces = new Dictionary<GameObject, DomePiece>();
+
+            domeUnbrokenPieces = domePieces;
+            volunteerVol = 0;
         }
 
+        public void DomePartChanged(bool broken)
+        {
+            if (broken) // under broke
+            {
+                domeUnbrokenPieces -= 1;
+            }
+            else // repaired
+            {
+                domeUnbrokenPieces += 1;
+                domeUnbrokenPieces = Mathf.Max(domeUnbrokenPieces, domePieces);
+            }
+        }
+
+        public void PeopleSavedChange()
+        {
+            
+        }
         
     }
 }
