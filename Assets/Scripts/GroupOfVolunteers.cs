@@ -119,11 +119,12 @@ public class GroupOfVolunteers : MonoBehaviour
         moving = false;
         pos = Vector2.zero;
         checkPoint = true;
+        Debug.Log("Next move to: " + pos);
     }
 
     public void FixingFinish()
     {
-        moving = true;
+        moving = true;  
     }
 
 

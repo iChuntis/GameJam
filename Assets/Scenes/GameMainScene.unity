@@ -6714,8 +6714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da047f4dd4a186a4daa23ddfd89b35cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  domePieces: 0
-  populationVol: 0
+  domePieces: 23
+  populationVol: 6
   cityMaxLifePoints: 1600
 --- !u!1001 &848590670
 PrefabInstance:
@@ -7731,6 +7731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa01c37e897a3a4da0624f93aa716f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uI_Manager: {fileID: 456226853}
   woundPeoplePrefab: {fileID: 6354642504159424229, guid: 648130e552b0cbf4cbc3d4e3207a55d3, type: 3}
   xCoords: {x: -14, y: 14}
   yCoords: {x: -14, y: 14}

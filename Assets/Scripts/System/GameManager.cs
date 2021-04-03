@@ -106,6 +106,12 @@ namespace GameSystem
             cityLifePoints = cityMaxLifePoints;
         }
 
+        public void Start()
+        {
+            UIController.instance.SetPopulationNum(populationVol);
+            UIController.instance.SetNonSavedNum(nonSavedPeople);
+        }
+
         
         public void DomePartChanged(bool broken)
         {
@@ -137,6 +143,7 @@ namespace GameSystem
             }
 
             UIController.instance.SetPopulationNum(populationVol);
+            UIController.instance.SetNonSavedNum(nonSavedPeople);
         }
 
         public void ChangeVolunteers(int val)

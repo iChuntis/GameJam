@@ -122,7 +122,6 @@ namespace SceneObjects
 
         public void SetRepaired()
         {
-            Debug.Log("FULL REPAIR");
             isBroken = false;
             canRepair = false;
             canDamage = false;
@@ -141,6 +140,7 @@ namespace SceneObjects
             }
 
             GameSystem.GameManager.instance.DomePartChanged(false);
+            isRepairing = false;
         }
 
         public void SetPartialRepaired()
@@ -166,13 +166,12 @@ namespace SceneObjects
         // Возможно, начало ремонта будет производиться по другому
         void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.CompareTag("Volounteer"))
+            if (col.gameObject.CompareTag("Volounteer") && !isRepairing && isBroken)
             {
-                Debug.Log("VOLUNTEERS COME");
                 canRepair = false;
+                isRepairing = true;
                 fixingBrigade = col.gameObject;
                 int volunteers = GameA.singleton.volunteers[col.gameObject].Count;
-                Debug.Log("Their count: " + volunteers);
                 coroutine = StartRepairVolunteers(volunteers);
                 StartCoroutine(coroutine);
 
@@ -187,7 +186,7 @@ namespace SceneObjects
 
         void OnTriggerExit2D(Collider2D col)
         {
-            if (col.gameObject.CompareTag("Volounteer") && isRepairing)
+            if (col.gameObject.CompareTag("Volounteer") && isRepairing && isBroken)
             {
                 Debug.Log("PARTIAL VOLUNTEERS STOP");
                 SetPartialRepaired();
@@ -209,7 +208,6 @@ namespace SceneObjects
         IEnumerator StartRepairVolunteers(int numOfVolunteers)
         {
             accDam = accumulatedDamage;
-            isRepairing = true;
 
             while (accDam > 0)
             {
@@ -220,7 +218,6 @@ namespace SceneObjects
             
             int returnLife = (int)((float)accumulatedDamage * 0.99f);
             GameSystem.GameManager.instance.ChangeCityLifePoints(returnLife);
-            isRepairing = false;
             SetRepaired();
         }
     }
