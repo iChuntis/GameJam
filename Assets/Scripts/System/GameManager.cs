@@ -100,7 +100,7 @@ namespace GameSystem
             domePieces = 23;
             domeUnbrokenPieces = domePieces;
             volunteerVol = 0;
-            populationVol = 0;
+            populationVol = 6;
             nonSavedPeople = 0;
 
             cityLifePoints = cityMaxLifePoints;
