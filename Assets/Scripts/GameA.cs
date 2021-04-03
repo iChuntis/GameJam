@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameA : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class GameA : MonoBehaviour
 
     public Dictionary<GameObject, GroupOfVolunteers> volunteers;
     public Dictionary<GameObject, People> people;
+
+
+    [SerializeField] private Text vCount;
+
 
     [SerializeField]private int peopleCount;
 
@@ -26,6 +31,11 @@ public class GameA : MonoBehaviour
     public int VCount
     {
         get => volunteersTotalCount;
+    }
+
+    private void Start()
+    {
+        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
     }
 
     private void Awake()
@@ -49,6 +59,8 @@ public class GameA : MonoBehaviour
     {
         volunteersTotalCount -= count;
 
+        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
+
         var group = Instantiate(vol_pref , Vector2.zero , Quaternion.identity);
 
         var script = group.GetComponent<GroupOfVolunteers>();
@@ -58,5 +70,7 @@ public class GameA : MonoBehaviour
         volunteers.Add(group, script);
 
         script.Init(count, pick);
+
+        pick.CanGet = false;
     }
 }
