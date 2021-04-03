@@ -35,9 +35,6 @@ namespace SceneObjects
 
         GameObject fixingBrigade;
         // Start is called before the first frame update
-
-        GroupOfVolunteers group;
-
         void Start()
         {
             GameSystem.GameManager.instance.allDomePieces.Add(gameObject, this);
@@ -125,7 +122,6 @@ namespace SceneObjects
 
         public void SetRepaired()
         {
-            Debug.Log("FULL REPAIR");
             isBroken = false;
             canRepair = false;
             canDamage = false;
@@ -144,8 +140,7 @@ namespace SceneObjects
             }
 
             GameSystem.GameManager.instance.DomePartChanged(false);
-            group.FixingFinish();
-            group = null;
+            isRepairing = false;
         }
 
         public void SetPartialRepaired()
@@ -171,21 +166,17 @@ namespace SceneObjects
         // Возможно, начало ремонта будет производиться по другому
         void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.gameObject.CompareTag("Volounteer"))
+            if (col.gameObject.CompareTag("Volounteer") && !isRepairing && isBroken)
             {
-                Debug.Log("VOLUNTEERS COME");
                 canRepair = false;
-<<<<<<< HEAD
-                var script = GameA.singleton.volunteers[col.gameObject];
-                int volunteers = script.Count;
-=======
+                isRepairing = true;
                 fixingBrigade = col.gameObject;
                 int volunteers = GameA.singleton.volunteers[col.gameObject].Count;
->>>>>>> dbea08a2527b81e6e48a44ba30d4e0160518493c
-                Debug.Log("Their count: " + volunteers);
                 coroutine = StartRepairVolunteers(volunteers);
                 StartCoroutine(coroutine);
-                group = script;
+
+
+                var script = GameA.singleton.volunteers[col.gameObject];
                 if (script == vol)
                 {
                     script.FixCheckPoint();
@@ -195,7 +186,7 @@ namespace SceneObjects
 
         void OnTriggerExit2D(Collider2D col)
         {
-            if (col.gameObject.CompareTag("Volounteer") && isRepairing)
+            if (col.gameObject.CompareTag("Volounteer") && isRepairing && isBroken)
             {
                 Debug.Log("PARTIAL VOLUNTEERS STOP");
                 SetPartialRepaired();
@@ -217,7 +208,6 @@ namespace SceneObjects
         IEnumerator StartRepairVolunteers(int numOfVolunteers)
         {
             accDam = accumulatedDamage;
-            isRepairing = true;
 
             while (accDam > 0)
             {
@@ -228,7 +218,6 @@ namespace SceneObjects
             
             int returnLife = (int)((float)accumulatedDamage * 0.99f);
             GameSystem.GameManager.instance.ChangeCityLifePoints(returnLife);
-            isRepairing = false;
             SetRepaired();
         }
     }

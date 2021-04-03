@@ -19,9 +19,15 @@ public class GameA : MonoBehaviour
 
     public void People(int people, int volounteers)
     {
-        peopleCount = people + volounteers;
-
+        peopleCount += people ;
+        SetVolounteers(volounteers);
         GameSystem.GameManager.instance.ChangePeople(people , volounteers);
+    }
+
+    public void SetVolounteers(int volounteers)
+    {
+        volunteersTotalCount += volounteers;
+        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
     }
 
     [SerializeField] private int volunteersTotalCount;
