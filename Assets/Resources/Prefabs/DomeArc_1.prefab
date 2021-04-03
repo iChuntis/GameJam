@@ -117,11 +117,7 @@ GameObject:
   - component: {fileID: 346537307317658257}
   m_Layer: 0
   m_Name: DomeArc_1
-<<<<<<< HEAD
-  m_TagString: InnerDome
-=======
   m_TagString: Troubles
->>>>>>> ee07194d9ec9f7dd26a38bae274d1e6b4f5678ce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
