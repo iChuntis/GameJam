@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UserInterface
 {
@@ -8,6 +9,7 @@ namespace UserInterface
     {
         public static UIController instance;
         public GameProgressController gameProgress;
+        public Text endText;
         // Start is called before the first frame update
         void Awake()
         {
@@ -47,6 +49,10 @@ namespace UserInterface
         {
             gameProgress.SetPeopleValue(val);
         }
+        public void ShowEndText()
+        {
+            endText.gameObject.SetActive(true);
+        } 
         
     }
 }

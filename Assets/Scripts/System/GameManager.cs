@@ -159,12 +159,13 @@ namespace GameSystem
             cityLifePoints += points;
             cityLifePoints = Mathf.Min(cityLifePoints, cityMaxLifePoints);
 
-            UIController.instance.SetDomeBalance(((float)cityLifePoints / (float)cityMaxLifePoints)/2.0f);
+            UIController.instance.SetDomeBalance(((float)cityLifePoints / (float)cityMaxLifePoints));
 
             if (cityLifePoints <= 0)
             {
                 // Город проиграл
-
+                Time.timeScale = 0;
+                UIController.instance.ShowEndText();
             }
         }
     }

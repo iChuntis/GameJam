@@ -21,6 +21,7 @@ namespace GameSystem
         float timeCount;
         float timeOfDomeDamage;
         float timeOfPeopleSpawn;
+        float timeOfSpeedPlacesSpawn;
 
         [SerializeField]
         float[] gameMileStones;
@@ -31,15 +32,20 @@ namespace GameSystem
         float[] peopleSpawnFreq;
         [SerializeField]
         int[] peopleSpawnNumber;
+
+        [SerializeField]
+        float[] speedPlacesFreq;
         int currMileStone;
 
 
         DomeController domeController;
         CityController cityController;
+        SpeedPlacesSpawner speedPlacesSpawner;
         void Start()
         {
             domeController = FindObjectOfType<DomeController>();
             cityController = FindObjectOfType<CityController>();
+            speedPlacesSpawner = FindObjectOfType<SpeedPlacesSpawner>();
             //timeOfNextEvent = Random.Range(timeEventInterval.x, timeEventInterval.y);
 
             currMileStone = 0;
@@ -47,6 +53,7 @@ namespace GameSystem
             timeOfNextEvent = 0.0f;
             timeOfDomeDamage = 0.0f;
             timeOfPeopleSpawn = 0.0f;
+            timeOfSpeedPlacesSpawn = 0.0f;
         }
 
         // Update is called once per frame
@@ -74,6 +81,12 @@ namespace GameSystem
                 timeOfPeopleSpawn = 0.0f;
                 // Make random people spawn
                 StartCoroutine(MakeSavePeopleEvent(peopleSpawnNumber[currMileStone]));
+            }
+            timeOfSpeedPlacesSpawn += Time.deltaTime;
+            if (timeOfSpeedPlacesSpawn >= speedPlacesFreq[currMileStone])
+            {
+                timeOfSpeedPlacesSpawn = 0.0f;
+                StartCoroutine(MakeNewSpeedPlaces());
             }
 
             /*
@@ -103,10 +116,17 @@ namespace GameSystem
         {
             // Check where we can place the people for to save
             Debug.Log("GameSystem.GameManager.instance.NonSavedPeople " + GameSystem.GameManager.instance.NonSavedPeople);
+            int cnt = GameObject.FindObjectsOfType<People>().Length;
+            if (cnt <= 5)
+            {
+                cityController.SetPlaceToSavePeople(peopleSpawn);
+            }
+            /*
             if (GameSystem.GameManager.instance.NonSavedPeople < 2)
             {
                 cityController.SetPlaceToSavePeople(peopleSpawn);
             }
+            */
 
             yield return null;
         }
@@ -122,6 +142,12 @@ namespace GameSystem
                 domeController.ChooseDomePartToBroke();
             }
 
+            yield return null;
+        }
+
+        IEnumerator MakeNewSpeedPlaces()
+        {
+            speedPlacesSpawner.SetPlacesToSpawn();
             yield return null;
         }
     }
