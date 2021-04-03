@@ -30,7 +30,10 @@ public class People : Pick
     private float lastTime = 0;
     private bool firstTime;
 
-
+    public void InitUI(UI_Manager ui)
+    {
+        UI_Manager = ui;
+    }
     private IEnumerator dieOrNot()
     {
         while (gameObject != null)
