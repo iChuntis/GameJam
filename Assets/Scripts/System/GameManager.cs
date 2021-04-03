@@ -36,6 +36,7 @@ namespace GameSystem
         int populationVol;
         // Число волонтеров
         int volunteerVol;
+        int accesibleVolunteers;
 
         [SerializeField]
         int cityMaxLifePoints;

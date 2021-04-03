@@ -17,6 +17,8 @@ namespace SceneObjects
         int accumulatedDamage;
         int currentDamageRate;
 
+        int accDam;
+
         //public Vector3 myPosition;
 
         Collider2D myCollider;
@@ -44,6 +46,7 @@ namespace SceneObjects
             increaseDamageTimer = 0.0f;
 
             accumulatedDamage = 0;
+            accDam = 0;
             currentDamageRate = initDamageRate;
 
             myCollider = GetComponent<Collider2D>();
@@ -129,6 +132,25 @@ namespace SceneObjects
             GameSystem.GameManager.instance.DomePartChanged(false);
         }
 
+        public void SetPartialRepaired()
+        {
+            StopCoroutine(coroutine);
+
+            if (accDam <= currentDamageRate)
+            {
+                SetRepaired();
+                return;
+            }
+
+            int returnLife = (int)((float)(accumulatedDamage - accDam) * 0.99f);
+            GameSystem.GameManager.instance.ChangeCityLifePoints(returnLife);
+
+            accumulatedDamage = accDam;
+            accDam = 0;
+            coroutine = null;
+            isRepairing = false;
+        }
+
         // Возможно, начало ремонта будет производиться по другому
         void OnCollisionEnter2D(Collision2D col)
         {
@@ -147,6 +169,14 @@ namespace SceneObjects
             }
         }
 
+        void OnCollisionExit2D(Collision2D col)
+        {
+            if (col.gameObject.CompareTag("Volounteer"))
+            {
+                SetPartialRepaired();
+            }
+        }
+
         IEnumerator StartRepair(float repairSpeed)
         {
             yield return new WaitForSeconds(repairSpeed);
@@ -161,7 +191,8 @@ namespace SceneObjects
 
         IEnumerator StartRepairVolunteers(int numOfVolunteers)
         {
-            int accDam = accumulatedDamage;
+            accDam = accumulatedDamage;
+            isRepairing = true;
 
             while (accDam > 0)
             {
