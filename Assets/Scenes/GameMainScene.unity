@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vCount: {fileID: 1845593823}
   peopleCount: 0
-  volunteersTotalCount: 6
+  volunteersTotalCount: 2
   vol_pref: {fileID: 4774023502327204636, guid: 880d1203a93789742ac67623302ba3c3, type: 3}
 --- !u!1001 &544756398
 PrefabInstance:
