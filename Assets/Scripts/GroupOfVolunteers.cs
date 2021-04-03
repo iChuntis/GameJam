@@ -53,19 +53,26 @@ public class GroupOfVolunteers : MonoBehaviour
     [SerializeField] private float probability = 0;
     [SerializeField] private float timeStep = 8;
     private float lastTime = 0;
-    private bool firstTime;
+
+    [SerializeField] private float checkEverySec;
 
     private IEnumerator dieOrNot()
     {
-        while(gameObject != null)
+        bool die = false;
+        while(!die)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(checkEverySec);
             var rand = Random.Range(0, 100);
             if(probability > rand)
             {
                 //die
                 int_count -= 1;
+                die = true;
             }
+        }
+        if(int_count == 0)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -90,12 +97,14 @@ public class GroupOfVolunteers : MonoBehaviour
         if (checkPoint && rb.position == Vector2.zero)
         {
             moving = false;
+            GameA.singleton.SetVolounteers(int_count);
             Destroy(this.gameObject);
         }
     }
 
     private IEnumerator update()
     {
+        bool firstTime = true;
         lastTime = Time.time;
         while (true)
         {
@@ -106,9 +115,11 @@ public class GroupOfVolunteers : MonoBehaviour
                     firstTime = false;
                     timeStep = 6f;
                     probability = 1f;
+                    Debug.Log("FIRST TIME ! ");
                 }
                 else
                 {
+                    Debug.Log(" TIME ! ");
                     probability += 5f;
                     probability = Mathf.Min(probability, 65);
                 }
@@ -142,13 +153,21 @@ public class GroupOfVolunteers : MonoBehaviour
         if (collision.CompareTag("InnerDome"))
         {
             Debug.Log("EXITED INNER DOME");
-            StartCoroutine(dieOrNot());
+
+            StartCoroutine(update());
+
+            for(int i = 0; i < int_count; i++)
+            {
+                StartCoroutine(dieOrNot());
+            }
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("InnerDome"))
         {
+            Debug.Log("Entered INNER DOME");
             StopAllCoroutines();
         }
     }

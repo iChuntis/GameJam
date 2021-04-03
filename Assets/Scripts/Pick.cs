@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Pick : MonoBehaviour
 {
+    protected bool ifSegmentBrocken = false;
 
     protected UI_Manager UI_Manager;
 
@@ -41,6 +42,15 @@ public abstract class Pick : MonoBehaviour
         Debug.Log("MOUSE UP");
 
         if (canGet)
-            UI_Manager.ShowUI(this);
+        {
+            if (gameObject.tag == "Troubles" && ifSegmentBrocken)
+            {
+                UI_Manager.ShowUI(this);
+            }
+            else if(gameObject.tag != "Troubles")
+            {
+                UI_Manager.ShowUI(this);
+            }
+        }
     }
 }

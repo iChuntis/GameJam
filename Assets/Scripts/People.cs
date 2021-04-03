@@ -4,8 +4,9 @@ using System.Collections;
 
 public class People : Pick 
 {
-    private int pCount = 1;
+    [SerializeField]private int pCount = 1;
 
+    private bool volounteersCame = false;
     public int Count
     {
         get => pCount;
@@ -44,8 +45,7 @@ public class People : Pick
             {
                 //die
                 pCount -= 1;
-
-                GameSystem.GameManager.instance.ChangePeople(-1, 0); 
+                GameSystem.GameManager.instance.ChangePeople(-1); 
             }
         }
     }
@@ -61,6 +61,7 @@ public class People : Pick
                 moving = true;
                 script.PeopleCheckPoint();
                 script.People = pCount;
+                volounteersCame = true;
             }
         }
         if (other.CompareTag("InnerDome"))
@@ -87,9 +88,13 @@ public class People : Pick
         if(rb.position == Vector2.zero)
         {
             moving = false;
-            GameA.singleton.People(pCount, vol.Count);
+            GameA.singleton.People(pCount);
             Destroy(gameObject);
         }
+
+        if (volounteersCame)
+            if(vol.Count == 0)
+                Destroy(gameObject);
     }
 
 }

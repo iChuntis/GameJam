@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 346537307317658257}
   m_Layer: 0
   m_Name: DomeArc_1
-  m_TagString: Untagged
+  m_TagString: Troubles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

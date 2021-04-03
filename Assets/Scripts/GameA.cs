@@ -14,14 +14,18 @@ public class GameA : MonoBehaviour
     [SerializeField] private Text vCount;
 
 
-    [SerializeField]private int peopleCount;
-
-
-    public void People(int people, int volounteers)
+    [SerializeField] private int peopleCount;
+    public void People(int people)
     {
         peopleCount += people ;
-        SetVolounteers(volounteers);
-        GameSystem.GameManager.instance.ChangePeople(people , volounteers);
+
+        if(peopleCount >= 3)
+        {
+            volunteersTotalCount += 1;
+            peopleCount %= 3;
+        }
+        Debug.Log("People COUNT : " + peopleCount);
+        GameSystem.GameManager.instance.ChangePeople(people);
     }
 
     public void SetVolounteers(int volounteers)
@@ -60,10 +64,23 @@ public class GameA : MonoBehaviour
         people = new Dictionary<GameObject, People>();
     }
 
+    private IEnumerator check()
+    {
+        yield return new WaitForSeconds(10f);
+        volunteersTotalCount += 1;
+        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
+        yield return null;
+    }
+
 
     public void SendVolunteers(in int count , Pick pick)
     {
         volunteersTotalCount -= count;
+
+        if(volunteersTotalCount == 0)
+        {
+            StartCoroutine(check());
+        }
 
         vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
 

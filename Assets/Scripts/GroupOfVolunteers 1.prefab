@@ -315,7 +315,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: {fileID: 4774023500859038146}
+  int_count: 0
   maxDelta: 0.01
-  speed: 100
+  speed: 50
   probability: 0
   timeStep: 8
+  checkEverySec: 5
