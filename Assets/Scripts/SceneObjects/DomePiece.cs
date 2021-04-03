@@ -33,6 +33,9 @@ namespace SceneObjects
         float secondsTimer;
         float increaseDamageTimer;
         // Start is called before the first frame update
+
+        GroupOfVolunteers group;
+
         void Start()
         {
             GameSystem.GameManager.instance.allDomePieces.Add(gameObject, this);
@@ -131,6 +134,8 @@ namespace SceneObjects
             coroutine = null;
             allertPoint.SetActive(false);
             GameSystem.GameManager.instance.DomePartChanged(false);
+            group.FixingFinish();
+            group = null;
         }
 
         public void SetPartialRepaired()
@@ -160,13 +165,12 @@ namespace SceneObjects
             {
                 Debug.Log("VOLUNTEERS COME");
                 canRepair = false;
-                int volunteers = GameA.singleton.volunteers[col.gameObject].Count;
+                var script = GameA.singleton.volunteers[col.gameObject];
+                int volunteers = script.Count;
                 Debug.Log("Their count: " + volunteers);
                 coroutine = StartRepairVolunteers(volunteers);
                 StartCoroutine(coroutine);
-
-
-                var script = GameA.singleton.volunteers[col.gameObject];
+                group = script;
                 if (script == vol)
                 {
                     script.FixCheckPoint();
