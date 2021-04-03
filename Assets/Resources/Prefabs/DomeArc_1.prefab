@@ -257,7 +257,9 @@ MonoBehaviour:
   isBroken: 0
   canRepair: 0
   isRepairing: 0
+  canDamage: 0
   timeToRepair: 5
   myPosition: {x: 0, y: 0, z: 0}
+  initDamageRate: 5
   allertPoint: {fileID: 346537306675412656}
   deltaTimer: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SceneObjects;
+using UserInterface;
 
 namespace GameSystem
 {
@@ -36,6 +37,12 @@ namespace GameSystem
         // Число волонтеров
         int volunteerVol;
 
+        [SerializeField]
+        int cityMaxLifePoints;
+
+        int cityLifePoints;
+        int nonSavedPeople;
+
         public int DomePieces
         {
             get{return domePieces;}
@@ -46,10 +53,23 @@ namespace GameSystem
             get{return domeUnbrokenPieces;}
             set{domeUnbrokenPieces = value;}
         }
+
+        public int DomeBrokenPieces()
+        {
+            //domePieces = allDomePieces.Count;
+            return domePieces-domeUnbrokenPieces;
+        }
+
         public int PopulationVol
         {
             get{return populationVol;}
             set{populationVol = value;}
+        }
+
+        public int NonSavedPeople
+        {
+            get{return nonSavedPeople;}
+            set{nonSavedPeople = value;}
         }
         public int VolunteerVol
         {
@@ -76,10 +96,16 @@ namespace GameSystem
             //allPools = new Dictionary<GameObject, PoolObject>();
             allDomePieces = new Dictionary<GameObject, DomePiece>();
 
+            domePieces = 23;
             domeUnbrokenPieces = domePieces;
             volunteerVol = 0;
+            populationVol = 0;
+            nonSavedPeople = 0;
+
+            cityLifePoints = cityMaxLifePoints;
         }
 
+        
         public void DomePartChanged(bool broken)
         {
             if (broken) // under broke
@@ -93,10 +119,41 @@ namespace GameSystem
             }
         }
 
+        /*
         public void PeopleSavedChange()
         {
             
         }
-        
+        */
+
+        public void ChangePeople(int val)
+        {
+            populationVol += val;
+            if (val > 0)
+            {
+                nonSavedPeople -= val;
+            }
+        }
+
+        public void ChangeNotSavedPeople(int val)
+        {
+            nonSavedPeople += val;
+            nonSavedPeople = Mathf.Max(0, nonSavedPeople);
+            Debug.Log("Add " + val + " non-saved people. Here are " + nonSavedPeople + " nonSavedPeople");
+        }
+
+        public void ChangeCityLifePoints(int points)
+        {
+            cityLifePoints += points;
+            cityLifePoints = Mathf.Min(cityLifePoints, cityMaxLifePoints);
+
+            UIController.instance.SetDomeBalance(((float)cityLifePoints / (float)cityMaxLifePoints)/2.0f);
+
+            if (cityLifePoints <= 0)
+            {
+                // Город проиграл
+
+            }
+        }
     }
 }
