@@ -41,6 +41,8 @@ public class People : Pick
             {
                 //die
                 pCount -= 1;
+
+                GameSystem.GameManager.instance.ChangePeople(-1, 0); 
             }
         }
     }
@@ -82,7 +84,7 @@ public class People : Pick
         if(rb.position == Vector2.zero)
         {
             moving = false;
-            GameA.singleton.People = pCount + vol.Count;
+            GameA.singleton.People(pCount, vol.Count);
             Destroy(gameObject);
         }
     }

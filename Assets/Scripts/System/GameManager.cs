@@ -127,10 +127,11 @@ namespace GameSystem
         }
         */
 
-        public void ChangePeople(int val)
+        public void ChangePeople(int val , int volounteers)
         {
-            populationVol += val;
-            if (val > 0)
+            populationVol += (val + volounteers);
+
+            if(val > 0)
             {
                 nonSavedPeople -= val;
             }

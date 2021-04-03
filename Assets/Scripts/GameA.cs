@@ -9,12 +9,14 @@ public class GameA : MonoBehaviour
     public Dictionary<GameObject, GroupOfVolunteers> volunteers;
     public Dictionary<GameObject, People> people;
 
-    [SerializeField]private int peopleCount; 
+    [SerializeField]private int peopleCount;
 
-    public int People
+
+    public void People(int people, int volounteers)
     {
-        get => peopleCount;
-        set => peopleCount = value;
+        peopleCount = people + volounteers;
+
+        GameSystem.GameManager.instance.ChangePeople(people , volounteers);
     }
 
     [SerializeField] private int volunteersTotalCount;
