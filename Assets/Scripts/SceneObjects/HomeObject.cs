@@ -11,7 +11,7 @@ namespace SceneObjects
         public Collider2D myCollider;
         void Start()
         {
-
+            GameSystem.GameManager.instance.allHomes.Add(gameObject, this);
         }
 
         void OnTriggerEnter2D(Collider2D col)

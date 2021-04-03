@@ -30,8 +30,20 @@ namespace UserInterface
 
         public void SetValues(float peopleBar, float domeBar)
         {
-            StopAllCoroutines();
-            StartCoroutine(ChangeBarAnim(peopleBar, domeBar));
+            //StopAllCoroutines();
+            //StartCoroutine(ChangeBarAnim(peopleBar, domeBar));
+        }
+
+        public void SetDomeValue(float domeBar)
+        {
+            currentDomeBar = Mathf.Min(0.5f, domeBar);
+            domeBarImg.fillAmount = currentDomeBar;
+        }
+
+        public void SetPeopleValue(float peopleBar)
+        {
+            currentPeopleBar = Mathf.Min(0.5f, peopleBar);
+            peopleBarImg.fillAmount = currentPeopleBar;
         }
 
         public void SetVolunteersNum(int num)
@@ -39,6 +51,7 @@ namespace UserInterface
             volunteersVol.text = "Volunteers: " + num.ToString();
         }
 
+        /*
         IEnumerator ChangeBarAnim(float peopleBar, float domeBar)
         {
             float changeP = peopleBar - currentPeopleBar;
@@ -67,5 +80,6 @@ namespace UserInterface
             peopleBarImg.fillAmount = currentPeopleBar;
             domeBarImg.fillAmount = currentDomeBar;
         }
+        */
     }
 }
