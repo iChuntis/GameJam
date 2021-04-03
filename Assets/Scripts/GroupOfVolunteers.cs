@@ -8,7 +8,7 @@ public class GroupOfVolunteers : MonoBehaviour
 
     [SerializeField] private Text count;
 
-    private int int_count;
+    [SerializeField]private int int_count;
 
     private int peopleCount = 0;
     public int People
@@ -43,6 +43,11 @@ public class GroupOfVolunteers : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(update());
     }
 
     [SerializeField] private float probability = 0;
@@ -89,22 +94,27 @@ public class GroupOfVolunteers : MonoBehaviour
         }
     }
 
-    private void Update()
+    private IEnumerator update()
     {
-        if(Time.time >= lastTime + timeStep)
+        lastTime = Time.time;
+        while (true)
         {
-            if (firstTime)
+            if (Time.time >= lastTime + timeStep)
             {
-                firstTime = false;
-                timeStep = 6f;
-                probability = 1f;
+                if (firstTime)
+                {
+                    firstTime = false;
+                    timeStep = 6f;
+                    probability = 1f;
+                }
+                else
+                {
+                    probability += 5f;
+                    probability = Mathf.Min(probability, 65);
+                }
+                lastTime = Time.time;
             }
-            else
-            {
-                probability += 5f;
-                probability = Mathf.Min(probability, 65);
-            }
-            lastTime = Time.time;
+            yield return new WaitForEndOfFrame();
         }
     }
 
