@@ -135,6 +135,8 @@ namespace GameSystem
             {
                 nonSavedPeople -= val;
             }
+
+            UIController.instance.SetPopulationNum(populationVol);
         }
 
         public void ChangeVolunteers(int val)
@@ -146,6 +148,7 @@ namespace GameSystem
         {
             nonSavedPeople += val;
             nonSavedPeople = Mathf.Max(0, nonSavedPeople);
+            UIController.instance.SetNonSavedNum(nonSavedPeople);
             Debug.Log("Add " + val + " non-saved people. Here are " + nonSavedPeople + " nonSavedPeople");
         }
 

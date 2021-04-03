@@ -118,6 +118,7 @@ namespace SceneObjects
 
         public void SetRepaired()
         {
+            Debug.Log("FULL REPAIR");
             isBroken = false;
             canRepair = false;
             isRepairing = false;
@@ -149,14 +150,18 @@ namespace SceneObjects
             accDam = 0;
             coroutine = null;
             isRepairing = false;
+            canRepair = true;
         }
 
         // Возможно, начало ремонта будет производиться по другому
-        void OnCollisionEnter2D(Collision2D col)
+        void OnTriggerEnter2D(Collider2D col)
         {
             if (col.gameObject.CompareTag("Volounteer"))
             {
+                Debug.Log("VOLUNTEERS COME");
+                canRepair = false;
                 int volunteers = GameA.singleton.volunteers[col.gameObject].Count;
+                Debug.Log("Their count: " + volunteers);
                 coroutine = StartRepairVolunteers(volunteers);
                 StartCoroutine(coroutine);
 
@@ -169,10 +174,11 @@ namespace SceneObjects
             }
         }
 
-        void OnCollisionExit2D(Collision2D col)
+        void OnTriggerExit2D(Collider2D col)
         {
             if (col.gameObject.CompareTag("Volounteer"))
             {
+                Debug.Log("PARTIAL VOLUNTEERS STOP");
                 SetPartialRepaired();
             }
         }
@@ -197,6 +203,7 @@ namespace SceneObjects
             while (accDam > 0)
             {
                 accDam -= 7 * numOfVolunteers;
+                Debug.Log("accDam: " + accDam + "  accumulatedDamage: " + accumulatedDamage);
                 yield return new WaitForSeconds(1.0f);
             }
             

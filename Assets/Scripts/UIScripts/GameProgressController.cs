@@ -12,6 +12,8 @@ namespace UserInterface
         public Image domeBarImg;
 
         public Text volunteersVol;
+        public Text populationVol;
+        public Text nonSavedVol;
 
         float currentPeopleBar;
         float currentDomeBar;
@@ -49,6 +51,15 @@ namespace UserInterface
         public void SetVolunteersNum(int num)
         {
             volunteersVol.text = "Volunteers: " + num.ToString();
+        }
+
+        public void SetPopulationNum(int num)
+        {
+            populationVol.text = "Population: " + num.ToString();
+        }
+        public void SetNonSavedNum(int num)
+        {
+            nonSavedVol.text = "NonSaved: " + num.ToString();
         }
 
         /*

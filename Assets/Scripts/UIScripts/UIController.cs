@@ -30,6 +30,14 @@ namespace UserInterface
         {
             gameProgress.SetVolunteersNum(vNum);
         }
+        public void SetPopulationNum(int vNum)
+        {
+            gameProgress.SetPopulationNum(vNum);
+        }
+        public void SetNonSavedNum(int vNum)
+        {
+            gameProgress.SetNonSavedNum(vNum);
+        }
 
         public void SetDomeBalance(float val)
         {
@@ -39,5 +47,6 @@ namespace UserInterface
         {
             gameProgress.SetPeopleValue(val);
         }
+        
     }
 }
