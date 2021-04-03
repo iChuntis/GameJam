@@ -1,46 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-
-public class Pick : MonoBehaviour 
+public abstract class Pick : MonoBehaviour
 {
-    [SerializeField] private GameObject coverPref;
 
-    private UI_Manager UI_Manager;
+    protected GroupOfVolunteers vol;
 
-    private GameObject cover;
-
-    private void Awake()
+    public GroupOfVolunteers Vol
     {
-        Messenger<UI_Manager>.AddListener("InitUI", InitGameManager);
-
-        Messenger.AddListener("SetOffCover",SetOff);
+        set => vol = value;
     }
 
-    private void SetOff()
+    protected bool canGet = true;
+    public bool CanGet
     {
-        Destroy(cover);
-    }
-
-    private void InitGameManager(UI_Manager gm)
-    {
-        UI_Manager = gm;
-    }
-
-    private void OnMouseDown()
-    {
-        Debug.Log("MOUSE DOWN");
-
-    }
-
-    private void OnMouseUp()
-    {
-        Debug.Log("MOUSE UP");
-
-        UI_Manager.ShowUI(transform.position);
-
-        if(cover == null)
-            cover = Instantiate(coverPref, transform.position , Quaternion.identity);
+        get => canGet;
+        set => canGet = value;
     }
 
 }

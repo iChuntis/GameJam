@@ -2,15 +2,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class GroupOfVolunteers : MonoBehaviour
+public class GroupOfVolunteers : MonoBehaviour ,Walking
 {
     private Rigidbody2D rb;
 
     [SerializeField] private Text count;
 
-    [SerializeField] private float speed;
+    private int int_count;
+    public int Count
+    {
+        get => int_count;
+    }
 
-    private Vector2 direction;
+    [SerializeField] private float maxDelta;
+
+    [SerializeField] private float speed;
+    public float Speed
+    {
+        get => speed;
+    }
+
+    private Pick point_B;
+
+    private Vector2 pos;
+
+    private bool checkPoint = false;
 
     private bool moving = false;
 
@@ -19,29 +35,38 @@ public class GroupOfVolunteers : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(in int count , Vector2 point_B )
+    public void Init(in int count , Pick point_B )
     {
+        int_count = count;
+
         this.count.text = count.ToString();
+
+        this.point_B = point_B;
+
+        pos = point_B.transform.position;
+
         moving = true;
-        StartCoroutine(moveTo(point_B));
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void FixedUpdate()
     {
-        if(other.tag == "People")
-        {
-
-        }      
+        if (moving)
+            rb.MovePosition(Vector2.MoveTowards(rb.position , pos , maxDelta * speed));
     }
 
-    private IEnumerator moveTo(Vector2 point_B)
+    public void PeopleCheckPoint()
     {
-        while (moving)
-        {
+        pos = Vector2.zero;
+    }
 
-        }
+    public void FixCheckPoint()
+    {
+        moving = false;
+        pos = Vector2.zero;
+    }
 
-
-        yield return null;
+    public void FixingFinish()
+    {
+        moving = true;
     }
 }

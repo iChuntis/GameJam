@@ -315,4 +315,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: {fileID: 4774023500859038146}
-  speed: 50
+  maxDelta: 0.01
+  speed: 2.54

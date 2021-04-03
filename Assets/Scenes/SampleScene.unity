@@ -462,6 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 769514d2dfe0a884797e416b05c92cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volunteersTotalCount: 5
   volunteers: {fileID: 4774023502327204636, guid: 880d1203a93789742ac67623302ba3c3, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -1342,6 +1343,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673164900}
   m_CullTransparentMesh: 1
+--- !u!1 &1823614332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3814468574459502877, guid: 008b79afb083dd543b90c8b97a52e6b4, type: 3}
+  m_PrefabInstance: {fileID: 3814468574728182222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1823614333
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823614332}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1908495332 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6354642504159424229, guid: 648130e552b0cbf4cbc3d4e3207a55d3, type: 3}
@@ -1521,7 +1548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6354642504159424229, guid: 648130e552b0cbf4cbc3d4e3207a55d3, type: 3}
       propertyPath: m_TagString
-      value: People
+      value: Point
       objectReference: {fileID: 0}
     - target: {fileID: 6354642504159424231, guid: 648130e552b0cbf4cbc3d4e3207a55d3, type: 3}
       propertyPath: m_RootOrder

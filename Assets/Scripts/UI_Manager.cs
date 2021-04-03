@@ -11,26 +11,22 @@ public class UI_Manager : MonoBehaviour
 
     private int volunteersCountToSend;
 
-    private GameA gameManager;
-
-    private Vector2 positionToGo;
+    private Pick point_B;
 
     private void Start()
     {
         Messenger<UI_Manager>.Broadcast("InitUI", this);
-
-        gameManager = GetComponent<GameA>();
     }
 
     private void Update()
     {
         //uiMenuToChoose.position = (Vector2)Input.mousePosition  + UI_Offset;
     }
-    public void ShowUI(Vector2 position)
+    public void ShowUI(Pick pickedOne)
     {
         vCCHange("0");
 
-        positionToGo = position;
+        point_B = pickedOne;
 
         volunteersCountToSend = 0;
 
@@ -46,10 +42,12 @@ public class UI_Manager : MonoBehaviour
     //send volunteers to point
     public void Send()
     {
-        if(volunteersCountToSend != 0)
+        if(volunteersCountToSend != 0 && point_B.CanGet)
         {
-            gameManager.SendVolunteers(volunteersCountToSend, positionToGo);
+            GameA.singleton.SendVolunteers(volunteersCountToSend , point_B);
         }
+
+        point_B = null;
 
         uiMenuToChoose.gameObject.SetActive(false);
 
@@ -59,7 +57,8 @@ public class UI_Manager : MonoBehaviour
     //adding volunteers to send
     public void AddV_UI()
     {
-        volunteersCountToSend++;
+        if(GameA.singleton.VCount > volunteersCountToSend)
+            volunteersCountToSend++;
 
         vCCHange(volunteersCountToSend.ToString());
     }
