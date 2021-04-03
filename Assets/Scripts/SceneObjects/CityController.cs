@@ -75,7 +75,7 @@ namespace SceneObjects
             }
 
             // Here we find place of our wounded people
-            GameObject go = Instantiate(woundPeoplePrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
+            GameObject go = Instantiate(woundPeoplePrefab, new Vector3(x, y, -3f), Quaternion.identity);
         
             var script = go.GetComponent<People>();
             script.Count = ppl;
