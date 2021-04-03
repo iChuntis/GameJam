@@ -135,6 +135,11 @@ namespace GameSystem
             }
         }
 
+        public void ChangeVolunteers(int val)
+        {
+            volunteerVol += val;
+        }
+
         public void ChangeNotSavedPeople(int val)
         {
             nonSavedPeople += val;

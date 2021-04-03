@@ -9,6 +9,7 @@ public class People : Pick , Walking
     public int Count
     {
         get => pCount;
+        set {pCount = value;}
     }
 
     private UI_Manager UI_Manager;

@@ -5,7 +5,7 @@ using GameSystem;
 
 namespace SceneObjects
 {
-    public class DomePiece : MonoBehaviour
+    public class DomePiece : Pick
     {
         public bool isBroken;
         public bool canRepair;
@@ -134,16 +134,9 @@ namespace SceneObjects
         {
             if (col.gameObject.CompareTag("Volounteer"))
             {
-                /*
-                float timeR = GameManager.instance.player[col.gameObject].GetRepairTime();
-                isRepairing = true;
-                coroutine = StartRepair(timeR);
+                int volunteers = GameA.singleton.volunteers[col.gameObject].Count;
+                coroutine = StartRepairVolunteers(volunteers);
                 StartCoroutine(coroutine);
-                */
-
-                //int volunteers = col.gameObject....GetNumberOfVolunteers();
-                //coroutine = StartRepairVolunteers(volunteers);
-                //StartCoroutine(coroutine);
             }
         }
 

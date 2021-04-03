@@ -72,7 +72,8 @@ namespace SceneObjects
             }
 
             // Here we find place of our wounded people
-            Instantiate(woundPeoplePrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
+            GameObject go = Instantiate(woundPeoplePrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
+            go.GetComponent<People>().Count = ppl;
             GameSystem.GameManager.instance.ChangeNotSavedPeople(ppl);
         }
     }
