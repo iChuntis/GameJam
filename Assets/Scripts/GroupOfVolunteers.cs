@@ -9,9 +9,11 @@ public class GroupOfVolunteers : MonoBehaviour ,Walking
     [SerializeField] private Text count;
 
     private int int_count;
+
     public int Count
     {
         get => int_count;
+        set => int_count = value;
     }
 
     [SerializeField] private float maxDelta;
@@ -52,17 +54,24 @@ public class GroupOfVolunteers : MonoBehaviour ,Walking
     {
         if (moving)
             rb.MovePosition(Vector2.MoveTowards(rb.position , pos , maxDelta * speed));
+
+        if (checkPoint && rb.position == Vector2.zero)
+        {
+            moving = false;
+        }
     }
 
     public void PeopleCheckPoint()
     {
         pos = Vector2.zero;
+        checkPoint = true;
     }
 
     public void FixCheckPoint()
     {
         moving = false;
         pos = Vector2.zero;
+        checkPoint = true;
     }
 
     public void FixingFinish()

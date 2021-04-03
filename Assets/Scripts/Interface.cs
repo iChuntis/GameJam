@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Walking
 {
-    public int Count { get; }
+    public int Count { get; set; }
 }

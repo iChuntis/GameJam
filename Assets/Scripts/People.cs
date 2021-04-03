@@ -4,29 +4,22 @@ using UnityEngine.EventSystems;
 
 public class People : Pick , Walking
 {
-    private int pCount;
+    private int pCount = 1;
 
     public int Count
     {
         get => pCount;
-        set {pCount = value;}
+        set => pCount = value;
     }
-
-    private UI_Manager UI_Manager;
 
     private Rigidbody2D rb;
 
     private bool moving = false;
 
-    private float maxDelta;
+    private float maxDelta = 0.01f;
 
     private float speed;
 
-
-    private void Awake()
-    {
-        Messenger<UI_Manager>.AddListener("InitUI", InitUI);
-    }
 
     private void OnEnable()
     {
@@ -35,30 +28,29 @@ public class People : Pick , Walking
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var script = GameA.singleton.volunteers[other.gameObject];
-        if (script == vol)
+        if(other.tag == "Volounteer")
         {
-            script.PeopleCheckPoint();
+            var script = GameA.singleton.volunteers[other.gameObject];
+            if (script == vol)
+            {
+                moving = true;
+                script.PeopleCheckPoint();
+            }
         }
     }
 
-
-    private void InitUI(UI_Manager gm)
+    private void FixedUpdate()
     {
-        UI_Manager = gm;
-    }
+        speed = vol.Speed;
+        if(moving)
+        {
+            rb.MovePosition(Vector2.MoveTowards(rb.position, Vector2.zero , maxDelta * speed * Time.deltaTime * pCount / 10));
+        }
 
-    private void OnMouseDown()
-    {
-        Debug.Log("MOUSE DOWN");
-    }
-
-    private void OnMouseUp()
-    {
-        Debug.Log("MOUSE UP");
-
-        if(canGet)
-            UI_Manager.ShowUI(this);
+        if(rb.position == Vector2.zero)
+        {
+            moving = false;
+        }
     }
 
 }
