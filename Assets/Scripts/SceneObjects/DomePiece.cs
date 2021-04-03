@@ -32,6 +32,8 @@ namespace SceneObjects
         float deltaTimer;
         float secondsTimer;
         float increaseDamageTimer;
+
+        GameObject fixingBrigade;
         // Start is called before the first frame update
         void Start()
         {
@@ -52,6 +54,8 @@ namespace SceneObjects
             myCollider = GetComponent<Collider2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             //myPosition = gameObject.transform.position;
+
+            fixingBrigade = null;
         }
 
         public void InitDamage()
@@ -121,7 +125,6 @@ namespace SceneObjects
             Debug.Log("FULL REPAIR");
             isBroken = false;
             canRepair = false;
-            isRepairing = false;
             canDamage = false;
             deltaTimer = 0.0f;
             secondsTimer = 0.0f;
@@ -130,6 +133,13 @@ namespace SceneObjects
             currentDamageRate = initDamageRate;
             coroutine = null;
             allertPoint.SetActive(false);
+
+            var script = GameA.singleton.volunteers[fixingBrigade];
+            if (script == vol)
+            {
+                script.FixingFinish();
+            }
+
             GameSystem.GameManager.instance.DomePartChanged(false);
         }
 
@@ -160,6 +170,7 @@ namespace SceneObjects
             {
                 Debug.Log("VOLUNTEERS COME");
                 canRepair = false;
+                fixingBrigade = col.gameObject;
                 int volunteers = GameA.singleton.volunteers[col.gameObject].Count;
                 Debug.Log("Their count: " + volunteers);
                 coroutine = StartRepairVolunteers(volunteers);
@@ -176,7 +187,7 @@ namespace SceneObjects
 
         void OnTriggerExit2D(Collider2D col)
         {
-            if (col.gameObject.CompareTag("Volounteer"))
+            if (col.gameObject.CompareTag("Volounteer") && isRepairing)
             {
                 Debug.Log("PARTIAL VOLUNTEERS STOP");
                 SetPartialRepaired();
@@ -209,6 +220,7 @@ namespace SceneObjects
             
             int returnLife = (int)((float)accumulatedDamage * 0.99f);
             GameSystem.GameManager.instance.ChangeCityLifePoints(returnLife);
+            isRepairing = false;
             SetRepaired();
         }
     }
