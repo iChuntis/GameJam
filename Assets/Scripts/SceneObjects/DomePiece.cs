@@ -5,7 +5,7 @@ using GameSystem;
 
 namespace SceneObjects
 {
-    public class DomePiece : MonoBehaviour
+    public class DomePiece : Pick
     {
         public bool isBroken;
         public bool canRepair;
@@ -144,6 +144,12 @@ namespace SceneObjects
                 //int volunteers = col.gameObject....GetNumberOfVolunteers();
                 //coroutine = StartRepairVolunteers(volunteers);
                 //StartCoroutine(coroutine);
+
+                var script = GameA.singleton.volunteers[col.gameObject];
+                if (script == vol)
+                {
+                    script.FixCheckPoint();
+                }
             }
         }
 
