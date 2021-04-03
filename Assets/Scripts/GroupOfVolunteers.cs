@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class GroupOfVolunteers : MonoBehaviour ,Walking
+public class GroupOfVolunteers : MonoBehaviour 
 {
     private Rigidbody2D rb;
 
@@ -10,6 +10,11 @@ public class GroupOfVolunteers : MonoBehaviour ,Walking
 
     private int int_count;
 
+    private int peopleCount = 0;
+    public int People
+    {
+        set => peopleCount = value;
+    }
     public int Count
     {
         get => int_count;
@@ -19,9 +24,12 @@ public class GroupOfVolunteers : MonoBehaviour ,Walking
     [SerializeField] private float maxDelta;
 
     [SerializeField] private float speed;
+
+
     public float Speed
     {
         get => speed;
+        set => speed = value;
     }
 
     private Pick point_B;
@@ -35,6 +43,25 @@ public class GroupOfVolunteers : MonoBehaviour ,Walking
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    [SerializeField] private float probability = 0;
+    [SerializeField] private float timeStep = 8;
+    private float lastTime = 0;
+    private bool firstTime;
+
+    private IEnumerator dieOrNot()
+    {
+        while(gameObject != null)
+        {
+            yield return new WaitForSeconds(1);
+            var rand = Random.Range(0, 100);
+            if(probability > rand)
+            {
+                //die
+                int_count -= 1;
+            }
+        }
     }
 
     public void Init(in int count , Pick point_B )
@@ -53,11 +80,31 @@ public class GroupOfVolunteers : MonoBehaviour ,Walking
     private void FixedUpdate()
     {
         if (moving)
-            rb.MovePosition(Vector2.MoveTowards(rb.position , pos , maxDelta * speed));
+            rb.MovePosition(Vector2.MoveTowards(rb.position , pos , maxDelta * speed * Time.deltaTime * (int_count + peopleCount)));
 
         if (checkPoint && rb.position == Vector2.zero)
         {
             moving = false;
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if(Time.time >= lastTime + timeStep)
+        {
+            if (firstTime)
+            {
+                firstTime = false;
+                timeStep = 6f;
+                probability = 1f;
+            }
+            else
+            {
+                probability += 5f;
+                probability = Mathf.Min(probability, 65);
+            }
+            lastTime = Time.time;
         }
     }
 
@@ -77,5 +124,22 @@ public class GroupOfVolunteers : MonoBehaviour ,Walking
     public void FixingFinish()
     {
         moving = true;
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("InnerDome"))
+        {
+            Debug.Log("EXITED INNER DOME");
+            StartCoroutine(dieOrNot());
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("InnerDome"))
+        {
+            StopAllCoroutines();
+        }
     }
 }
