@@ -7,6 +7,9 @@ namespace SceneObjects
 {
     public class CityController : MonoBehaviour
     {
+        [SerializeField]
+        UI_Manager uI_Manager;
+
         // Temporary prefab
         [SerializeField]
         GameObject woundPeoplePrefab; // Here we must instantiate PeopleInCity prefab
@@ -73,7 +76,11 @@ namespace SceneObjects
 
             // Here we find place of our wounded people
             GameObject go = Instantiate(woundPeoplePrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
-            go.GetComponent<People>().Count = ppl;
+        
+            var script = go.GetComponent<People>();
+            script.Count = ppl;
+            script.InitUI(uI_Manager);
+
             GameSystem.GameManager.instance.ChangeNotSavedPeople(ppl);
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Pick : MonoBehaviour
 {
 
-    private UI_Manager UI_Manager;
+    protected UI_Manager UI_Manager;
 
     protected GroupOfVolunteers vol;
 
