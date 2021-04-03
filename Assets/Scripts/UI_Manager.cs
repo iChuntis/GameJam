@@ -66,7 +66,10 @@ public class UI_Manager : MonoBehaviour
     //subtracting volunteers to send
     public void SubV_UI()
     {
-        volunteersCountToSend--;
+        if ( volunteersCountToSend - 1 != -1)
+        {
+            volunteersCountToSend--;
+        }
 
         vCCHange(volunteersCountToSend.ToString());
     }
