@@ -9,6 +9,7 @@ namespace SceneObjects
     {
         // Start is called before the first frame update
         public Collider2D myCollider;
+
         void Start()
         {
             GameSystem.GameManager.instance.allHomes.Add(gameObject, this);
@@ -20,9 +21,10 @@ namespace SceneObjects
             {
                 //GameSystem.instance.player[col.gameObject].SetSpeed(crossSpeed);
             }
-            if (col.gameObject.CompareTag("Volunteer"))
+            if (col.gameObject.CompareTag("Volounteer"))
             {
                 //GameSystem.instance.allVolunteers[col.gameObject].SetSpeed(crossSpeed);
+                GameA.singleton.volunteers[col.gameObject].Speed /= 2;
             }
         }
 
@@ -32,9 +34,10 @@ namespace SceneObjects
             {
                 //GameSystem.instance.player[col.gameObject].DefaultSpeed();
             }
-            if (col.gameObject.CompareTag("Volunteer"))
+            if (col.gameObject.CompareTag("Volounteer"))
             {
                 //GameSystem.instance.allVolunteers[col.gameObject].DefaultSpeed();
+                GameA.singleton.volunteers[col.gameObject].Speed *= 2;
             }
         }
     }

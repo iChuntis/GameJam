@@ -7,6 +7,15 @@ public class GameA : MonoBehaviour
     public static GameA singleton;
 
     public Dictionary<GameObject, GroupOfVolunteers> volunteers;
+    public Dictionary<GameObject, People> people;
+
+    [SerializeField]private int peopleCount; 
+
+    public int People
+    {
+        get => peopleCount;
+        set => peopleCount = value;
+    }
 
     [SerializeField] private int volunteersTotalCount;
 
@@ -29,7 +38,10 @@ public class GameA : MonoBehaviour
         }
 
         volunteers = new Dictionary<GameObject, GroupOfVolunteers>();
+
+        people = new Dictionary<GameObject, People>();
     }
+
 
     public void SendVolunteers(in int count , Pick pick)
     {
@@ -44,6 +56,5 @@ public class GameA : MonoBehaviour
         volunteers.Add(group, script);
 
         script.Init(count, pick);
-
     }
 }

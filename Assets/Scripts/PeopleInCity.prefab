@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1908495337}
   m_Layer: 0
   m_Name: PeopleInCity
-  m_TagString: Point
+  m_TagString: People
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,9 +73,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 151
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.49986386, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.27877426, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e0f089784e7a74d80f94b94e946232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  probability: 0
+  timeStep: 8
 --- !u!58 &6354642504159424233
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,7 +132,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
