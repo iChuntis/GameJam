@@ -133,14 +133,9 @@ namespace GameSystem
         }
         */
 
-        public void ChangePeople(int val , int volounteers)
+        public void ChangePeople(int val)
         {
-            populationVol += (val + volounteers);
-
-            if(val > 0)
-            {
-                nonSavedPeople -= val;
-            }
+            populationVol += val;
 
             UIController.instance.SetPopulationNum(populationVol);
             UIController.instance.SetNonSavedNum(nonSavedPeople);

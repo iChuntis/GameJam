@@ -39,6 +39,7 @@ namespace SceneObjects
         {
             GameSystem.GameManager.instance.allDomePieces.Add(gameObject, this);
             isBroken = false;
+            ifSegmentBrocken = isBroken;
             canRepair = false;
             canDamage = false;
             isRepairing = false;
@@ -67,6 +68,7 @@ namespace SceneObjects
                 increaseDamageTimer = 0.0f;
                 canRepair = true;
                 isBroken = true;
+                ifSegmentBrocken = isBroken;
                 canDamage = false;
                 accumulatedDamage = 0;
                 currentDamageRate = initDamageRate;
@@ -123,6 +125,7 @@ namespace SceneObjects
         public void SetRepaired()
         {
             isBroken = false;
+            ifSegmentBrocken = isBroken;
             canRepair = false;
             canDamage = false;
             deltaTimer = 0.0f;
@@ -138,7 +141,7 @@ namespace SceneObjects
             {
                 script.FixingFinish();
             }
-
+            CanGet = true;
             GameSystem.GameManager.instance.DomePartChanged(false);
             isRepairing = false;
         }
