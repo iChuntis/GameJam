@@ -197,6 +197,8 @@ namespace GameSystem
         {
             Time.timeScale = 0;
             UIController.instance.OnFinalMenu();
+            //UIController.instance.OnMenuButtonClick();
+            Messenger<float>.Broadcast("MatchFinished", Time.time);
         }
     }
 }

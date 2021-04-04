@@ -26,6 +26,18 @@ public class People : Pick
     }
 
 
+    private void Start()
+    {
+
+        StartCoroutine(update());
+
+        for (int i = 0; i < pCount; i++)
+        {
+            StartCoroutine(dieOrNot());
+        }
+
+    }
+
     [SerializeField] private float probability = 0;
     [SerializeField] private float timeStep = 8;
     private float lastTime = 0;
@@ -45,7 +57,9 @@ public class People : Pick
             {
                 //die
                 pCount -= 1;
-                GameSystem.GameManager.instance.ChangePeople(-1); 
+                GameSystem.GameManager.instance.ChangePeople(-1);
+                if (pCount == 0)
+                    Destroy(gameObject);
             }
         }
     }
@@ -62,6 +76,7 @@ public class People : Pick
                 script.PeopleCheckPoint();
                 script.People = pCount;
                 volounteersCame = true;
+
             }
         }
         if (other.CompareTag("InnerDome"))
@@ -96,5 +111,32 @@ public class People : Pick
             if(vol.Count == 0)
                 Destroy(gameObject);
     }
+    private IEnumerator update()
+    {
+        bool firstTime = true;
+        lastTime = Time.time;
+        while (true)
+        {
+            if (Time.time >= lastTime + timeStep)
+            {
+                if (firstTime)
+                {
+                    firstTime = false;
+                    timeStep = 6f;
+                    probability = 1f;
+                    Debug.Log("FIRST TIME ! ");
+                }
+                else
+                {
+                    Debug.Log(" TIME ! ");
+                    probability += 5f;
+                    probability = Mathf.Min(probability, 65);
+                }
+                lastTime = Time.time;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
 
 }
