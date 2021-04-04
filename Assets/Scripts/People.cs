@@ -25,19 +25,6 @@ public class People : Pick
         rb = GetComponent<Rigidbody2D>();
     }
 
-
-    private void Start()
-    {
-
-        StartCoroutine(update());
-
-        for (int i = 0; i < pCount; i++)
-        {
-            StartCoroutine(dieOrNot());
-        }
-
-    }
-
     [SerializeField] private float probability = 0;
     [SerializeField] private float timeStep = 8;
     private float lastTime = 0;
@@ -47,23 +34,6 @@ public class People : Pick
     {
         UI_Manager = ui;
     }
-    private IEnumerator dieOrNot()
-    {
-        while (gameObject != null)
-        {
-            yield return new WaitForSeconds(1);
-            var rand = Random.Range(0, 100);
-            if (probability > rand)
-            {
-                //die
-                pCount -= 1;
-                GameSystem.GameManager.instance.ChangePeople(-1);
-                if (pCount == 0)
-                    Destroy(gameObject);
-            }
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Volounteer")
@@ -84,20 +54,12 @@ public class People : Pick
             StopAllCoroutines();
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("InnerDome"))
-        {
-            Debug.Log("EXITED INNER DOME");
-            StartCoroutine(dieOrNot());
-        }
-    }
     private void FixedUpdate()
     {
         if(moving)
         {
-            speed = vol.Speed;
-            rb.MovePosition(Vector2.MoveTowards(rb.position, Vector2.zero, maxDelta * speed * Time.deltaTime * (pCount + vol.Count)));
+            speed = vol.SpeedBack;
+            rb.MovePosition(Vector2.MoveTowards(rb.position, Vector2.zero, maxDelta * speed * Time.deltaTime ));
         }
 
         if(rb.position == Vector2.zero)
@@ -111,32 +73,5 @@ public class People : Pick
             if(vol.Count == 0)
                 Destroy(gameObject);
     }
-    private IEnumerator update()
-    {
-        bool firstTime = true;
-        lastTime = Time.time;
-        while (true)
-        {
-            if (Time.time >= lastTime + timeStep)
-            {
-                if (firstTime)
-                {
-                    firstTime = false;
-                    timeStep = 6f;
-                    probability = 1f;
-                    Debug.Log("FIRST TIME ! ");
-                }
-                else
-                {
-                    Debug.Log(" TIME ! ");
-                    probability += 5f;
-                    probability = Mathf.Min(probability, 65);
-                }
-                lastTime = Time.time;
-            }
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
 
 }

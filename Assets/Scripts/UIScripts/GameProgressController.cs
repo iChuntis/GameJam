@@ -22,7 +22,7 @@ namespace UserInterface
         {
             UIController.instance.gameProgress = this;
             currentPeopleBar = 0.5f;
-            currentDomeBar = 0.5f;
+            currentDomeBar = 1.0f;
             deltaChangeBar = 0.01f;
 
             peopleBarImg.fillAmount = currentPeopleBar;
@@ -38,7 +38,7 @@ namespace UserInterface
 
         public void SetDomeValue(float domeBar)
         {
-            currentDomeBar = Mathf.Min(0.5f, domeBar);
+            currentDomeBar = Mathf.Min(1.0f, domeBar);
             domeBarImg.fillAmount = currentDomeBar;
         }
 
@@ -47,19 +47,19 @@ namespace UserInterface
             currentPeopleBar = Mathf.Min(0.5f, peopleBar);
             peopleBarImg.fillAmount = currentPeopleBar;
         }
-
+        
         public void SetVolunteersNum(int num)
         {
-            volunteersVol.text = "Volunteers: " + num.ToString();
+           // volunteersVol.text = "Volunteers: " + num.ToString();
         }
 
         public void SetPopulationNum(int num)
         {
-            populationVol.text = "Population: " + num.ToString();
+            //populationVol.text = "Population: " + num.ToString();
         }
         public void SetNonSavedNum(int num)
         {
-            nonSavedVol.text = "NonSaved: " + num.ToString();
+            //nonSavedVol.text = "NonSaved: " + num.ToString();
         }
 
         /*

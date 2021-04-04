@@ -20,6 +20,7 @@ namespace SceneObjects
             {
                 //GameSystem.instance.allVolunteers[col.gameObject].SetSpeed(crossSpeed);
                 GameA.singleton.volunteers[col.gameObject].Speed /= 2;
+                GameA.singleton.volunteers[col.gameObject].SpeedBack /= 2;
             }
         }
 
@@ -29,6 +30,7 @@ namespace SceneObjects
             {
                 //GameSystem.instance.allVolunteers[col.gameObject].DefaultSpeed();
                 GameA.singleton.volunteers[col.gameObject].Speed *= 2;
+                GameA.singleton.volunteers[col.gameObject].SpeedBack *= 2;
             }
         }
     }

@@ -10,21 +10,26 @@ public class GameA : MonoBehaviour
     public Dictionary<GameObject, GroupOfVolunteers> volunteers;
     public Dictionary<GameObject, People> people;
 
+    [SerializeField]private int colvo;
 
     [SerializeField] private Text vCount;
 
+    [SerializeField] private Text pCount;
+
 
     [SerializeField] private int peopleCount;
+
     public void People(int people)
     {
         peopleCount += people ;
 
-        if(peopleCount >= 3)
+        if(peopleCount >= colvo)
         {
-            volunteersTotalCount += 1;
-            peopleCount %= 3;
+            volunteersTotalCount += peopleCount / 5;
+            peopleCount %= colvo;
         }
         Debug.Log("People COUNT : " + peopleCount);
+        pCount.text = "Population: " + peopleCount;
         GameSystem.GameManager.instance.ChangePeople(people);
     }
 
@@ -66,8 +71,11 @@ public class GameA : MonoBehaviour
 
     private IEnumerator check()
     {
-        yield return new WaitForSeconds(10f);
-        volunteersTotalCount += 1;
+        yield return new WaitForSeconds(7f);
+        if (volunteersTotalCount == 0)
+        {
+            volunteersTotalCount += 1;
+        }
         vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
         yield return null;
     }
@@ -84,7 +92,7 @@ public class GameA : MonoBehaviour
 
         vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
 
-        var group = Instantiate(vol_pref , Vector2.zero , Quaternion.identity);
+        var group = Instantiate(vol_pref , new Vector3(0, 0, -3f), Quaternion.identity);
 
         var script = group.GetComponent<GroupOfVolunteers>();
 
