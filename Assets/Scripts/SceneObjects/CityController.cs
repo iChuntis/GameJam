@@ -32,6 +32,7 @@ namespace SceneObjects
 
         public void SetPlaceToSavePeople(int ppl)
         {
+            Debug.Log("Try to find place for people in city");
             float x, y;
             x = y = 0.0f;
 
@@ -64,6 +65,7 @@ namespace SceneObjects
                     continue;
                 }
 
+                /*
                 foreach (KeyValuePair<GameObject, HomeObject> kvp in GameSystem.GameManager.instance.allHomes)
                 {
                     if (kvp.Value.myCollider.bounds.Contains(new Vector2(x, y)))
@@ -72,15 +74,18 @@ namespace SceneObjects
                         break;
                     }
                 }
+                */
             }
 
             // Here we find place of our wounded people
+            //Debug.Log("Instantiate people in city");
+            
             GameObject go = Instantiate(woundPeoplePrefab, new Vector3(x, y, -3f), Quaternion.identity);
         
             var script = go.GetComponent<People>();
             script.Count = ppl;
             script.InitUI(uI_Manager);
-
+            
             GameSystem.GameManager.instance.ChangeNotSavedPeople(ppl);
         }
     }

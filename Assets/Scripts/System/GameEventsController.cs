@@ -80,6 +80,7 @@ namespace GameSystem
             {
                 timeOfPeopleSpawn = 0.0f;
                 // Make random people spawn
+                Debug.Log("Try to spawn people");
                 StartCoroutine(MakeSavePeopleEvent(peopleSpawnNumber[currMileStone]));
             }
             timeOfSpeedPlacesSpawn += Time.deltaTime;
@@ -115,8 +116,9 @@ namespace GameSystem
         IEnumerator MakeSavePeopleEvent(int peopleSpawn)
         {
             // Check where we can place the people for to save
-            Debug.Log("GameSystem.GameManager.instance.NonSavedPeople " + GameSystem.GameManager.instance.NonSavedPeople);
+            //Debug.Log("GameSystem.GameManager.instance.NonSavedPeople " + GameSystem.GameManager.instance.NonSavedPeople);
             int cnt = GameObject.FindObjectsOfType<People>().Length;
+            //Debug.Log("Cnt is: " + cnt + "  people spawn " + peopleSpawn);
             if (cnt <= 2)
             {
                 cityController.SetPlaceToSavePeople(peopleSpawn);
