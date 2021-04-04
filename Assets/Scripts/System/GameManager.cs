@@ -107,7 +107,7 @@ namespace GameSystem
             nonSavedPeople = 0;
 
             cityLifePoints = cityMaxLifePoints;
-            cityLifePoints = 100;
+            cityLifePoints = 10;
             gameDurationSeconds = 0;
             gameDurationSecs = 0.0f;
         }
@@ -116,9 +116,10 @@ namespace GameSystem
         {
             UIController.instance.SetPopulationNum(populationVol);
             UIController.instance.SetNonSavedNum(nonSavedPeople);
+            Time.timeScale = 1;
         }
 
-        void Update()
+        void FixedUpdate()
         {
             gameDurationSecs += Time.deltaTime;
             if (gameDurationSecs >= 1.0f)
@@ -194,7 +195,8 @@ namespace GameSystem
 
         void UltimateFinishGame()
         {
-            UIController.instance.OnMenuButtonClick();
+            Time.timeScale = 0;
+            UIController.instance.OnFinalMenu();
         }
     }
 }

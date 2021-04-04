@@ -21,8 +21,8 @@ namespace UserInterface
         void Start()
         {
             UIController.instance.gameProgress = this;
-            currentPeopleBar = 0.5f;
-            currentDomeBar = 0.5f;
+            //currentPeopleBar = 0.5f;
+            currentDomeBar = 1.0f;
             deltaChangeBar = 0.01f;
 
             peopleBarImg.fillAmount = currentPeopleBar;

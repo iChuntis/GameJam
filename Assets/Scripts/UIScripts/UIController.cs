@@ -12,6 +12,7 @@ namespace UserInterface
         public GameProgressController gameProgress;
         public Text endText;
         public GameObject menuPanel;
+        public GameObject finalMenuPanel;
         public Text timerText;
 
         // Start is called before the first frame update
@@ -72,12 +73,26 @@ namespace UserInterface
         public void OnSubMenuGoToMenuClick()
         {
             menuPanel.SetActive(false);
+            Time.timeScale = 1;
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenuScene", LoadSceneMode.Single);
         }
 
         public void SetNewTimeResult(int res)
         {
             timerText.text = "" + res;
+        }
+
+        public void OnFinalMenu()
+        {
+            finalMenuPanel.SetActive(true);
+        }
+
+        public void OnFinalRestartGame()
+        {
+            finalMenuPanel.SetActive(false);
+            Time.timeScale = 1;
+            Scene scene = SceneManager.GetActiveScene();
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene.name, LoadSceneMode.Single);
         }
         
     }

@@ -117,7 +117,7 @@ namespace GameSystem
             // Check where we can place the people for to save
             Debug.Log("GameSystem.GameManager.instance.NonSavedPeople " + GameSystem.GameManager.instance.NonSavedPeople);
             int cnt = GameObject.FindObjectsOfType<People>().Length;
-            if (cnt <= 5)
+            if (cnt <= 2)
             {
                 cityController.SetPlaceToSavePeople(peopleSpawn);
             }
