@@ -319,6 +319,6 @@ MonoBehaviour:
   maxDelta: 0.01
   speed: 130
   speedBack: 130
-  probability: 0
+  probability: 60
   timeStep: 8
   checkEverySec: 5
