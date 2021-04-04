@@ -23,11 +23,13 @@ namespace SceneObjects
             {
                 GameSystem.GameManager.instance.ChangeCityLifePoints(addHealth);
 
+                
                 var script = GameA.singleton.volunteers[col.gameObject];
                 if (script == vol)
                 {
                     script.FixCheckPoint();
                 }
+                
 
                 var script2 = GameA.singleton.volunteers[col.gameObject];
                 if (script2 == vol)

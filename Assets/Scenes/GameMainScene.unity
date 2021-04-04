@@ -7438,6 +7438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   domePieces: 21
+  shieldObject: {fileID: 2562140231705037126, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
   populationVol: 6
   cityMaxLifePoints: 1600
 --- !u!1 &838850577
@@ -10835,15 +10836,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562140231705037124, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.35
+      value: 7.78
       objectReference: {fileID: 0}
     - target: {fileID: 2562140231705037124, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.79
+      value: 11.73
       objectReference: {fileID: 0}
     - target: {fileID: 2562140231705037124, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 2562140231705037124, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10876,6 +10877,10 @@ PrefabInstance:
     - target: {fileID: 2562140231705037126, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
       propertyPath: m_Name
       value: ShieldObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562140231705037126, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}

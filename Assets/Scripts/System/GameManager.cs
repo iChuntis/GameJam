@@ -29,6 +29,9 @@ namespace GameSystem
         // Число всех участков купола
         [SerializeField]
         int domePieces;
+
+        [SerializeField]
+        GameObject shieldObject;
         // Число здоровых участков купола
         int domeUnbrokenPieces;
         // Число населения
@@ -46,6 +49,9 @@ namespace GameSystem
 
         int gameDurationSeconds;
         float gameDurationSecs;
+
+        bool generateShields;
+        float deltaTime;
 
         public int DomePieces
         {
@@ -107,9 +113,12 @@ namespace GameSystem
             nonSavedPeople = 0;
 
             cityLifePoints = cityMaxLifePoints;
-            cityLifePoints = 300;
+            //cityLifePoints = 300;
             gameDurationSeconds = 0;
             gameDurationSecs = 0.0f;
+
+            generateShields = false;
+            deltaTime = 0.0f;
         }
 
         public void Start()
@@ -144,13 +153,6 @@ namespace GameSystem
             }
         }
 
-        /*
-        public void PeopleSavedChange()
-        {
-            
-        }
-        */
-
         public void ChangePeople(int val)
         {
             populationVol += val;
@@ -179,6 +181,16 @@ namespace GameSystem
 
             UIController.instance.SetDomeBalance(((float)cityLifePoints / (float)cityMaxLifePoints));
 
+            if (cityLifePoints < 500)
+            {
+                generateShields = true;
+            }
+            else
+            {
+                generateShields = false;
+                deltaTime = 0.0f;
+            }
+
             if (cityLifePoints <= 0)
             {
                 // Город проиграл
@@ -199,6 +211,48 @@ namespace GameSystem
             UIController.instance.OnFinalMenu();
             //UIController.instance.OnMenuButtonClick();
             Messenger<float>.Broadcast("MatchFinished", Time.time);
+        }
+
+        void Update()
+        {
+            if (generateShields)
+            {
+                deltaTime += Time.deltaTime;
+                if (deltaTime >= 20.0f)
+                {
+                    deltaTime = 0.0f;
+                    SpawnShield();
+                }
+            }
+        }
+
+        void SpawnShield()
+        {
+            int numberArcs = 21;
+            Vector2 xCoords = new Vector2(-14.0f, 14.0f);
+            float x, y;
+            x = y = 0.0f;
+
+            int radiiSeg = 0;
+            int arcNumber = 0;
+
+            bool canPlaceWoundedPeople = false;
+            while (!canPlaceWoundedPeople)
+            {
+                canPlaceWoundedPeople = true;
+
+                radiiSeg = Random.Range(4, 7);
+                arcNumber = Random.Range(0, numberArcs);
+
+                float segLength = ((xCoords.y-xCoords.x)/2.0f)/7.0f;
+                float distRespawn = segLength * ((float)radiiSeg - 0.5f);
+                float angle = (2.0f * Mathf.PI / numberArcs) * arcNumber;
+
+                x = distRespawn * Mathf.Cos(angle);
+                y = distRespawn * Mathf.Sin(angle);
+            }
+            
+            GameObject go = Instantiate(shieldObject, new Vector3(x, y, -3f), Quaternion.identity);
         }
     }
 }
