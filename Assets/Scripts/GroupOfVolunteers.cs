@@ -6,9 +6,13 @@ public class GroupOfVolunteers : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    private Animator anim;
+
     [SerializeField] private Text count;
 
     [SerializeField]private int int_count;
+
+    private float debav;
 
     private int peopleCount = 0;
     public int People
@@ -24,12 +28,19 @@ public class GroupOfVolunteers : MonoBehaviour
     [SerializeField] private float maxDelta;
 
     [SerializeField] private float speed;
+    [SerializeField] private float speedBack;
 
 
     public float Speed
     {
         get => speed;
         set => speed = value;
+    }
+
+    public float SpeedBack
+    {
+        get => speedBack;
+        set => speedBack = value;
     }
 
     private Pick point_B;
@@ -43,6 +54,8 @@ public class GroupOfVolunteers : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        debav = speed / 2f;
+        anim = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -72,8 +85,13 @@ public class GroupOfVolunteers : MonoBehaviour
         }
         if(int_count == 0)
         {
-            Destroy(gameObject);
+            anim.SetTrigger("Death");
         }
+    }
+
+    public void Death()
+    {
+        Destroy(gameObject);
     }
 
     public void Init(in int count , Pick point_B )
@@ -92,7 +110,19 @@ public class GroupOfVolunteers : MonoBehaviour
     private void FixedUpdate()
     {
         if (moving)
-            rb.MovePosition(Vector2.MoveTowards(rb.position , pos , maxDelta * speed * Time.deltaTime * (int_count + peopleCount)));
+        {
+            if (checkPoint)
+            {
+                rb.AddTorque(-1, ForceMode2D.Force);
+                rb.MovePosition(Vector2.MoveTowards(rb.position, pos, maxDelta * speedBack * Time.deltaTime));
+            }
+            else
+            {
+                rb.AddTorque(1, ForceMode2D.Force);
+                rb.MovePosition(Vector2.MoveTowards(rb.position, pos, maxDelta * speed * Time.deltaTime));
+            }
+        }
+
 
         if (checkPoint && rb.position == Vector2.zero)
         {
@@ -114,13 +144,13 @@ public class GroupOfVolunteers : MonoBehaviour
                 {
                     firstTime = false;
                     timeStep = 6f;
-                    probability = 1f;
+                    probability = 20f;
                     Debug.Log("FIRST TIME ! ");
                 }
                 else
                 {
                     Debug.Log(" TIME ! ");
-                    probability += 5f;
+                    probability += 10f;
                     probability = Mathf.Min(probability, 65);
                 }
                 lastTime = Time.time;
@@ -133,6 +163,7 @@ public class GroupOfVolunteers : MonoBehaviour
     {
         pos = Vector2.zero;
         checkPoint = true;
+        speedBack -= 65 / int_count;
     }
 
     public void FixCheckPoint()

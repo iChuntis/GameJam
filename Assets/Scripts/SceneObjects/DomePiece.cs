@@ -148,6 +148,7 @@ namespace SceneObjects
 
         public void SetPartialRepaired()
         {
+            CanGet = true;
             StopCoroutine(coroutine);
 
             if (accDam <= currentDamageRate)

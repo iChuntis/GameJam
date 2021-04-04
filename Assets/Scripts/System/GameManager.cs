@@ -107,7 +107,6 @@ namespace GameSystem
             nonSavedPeople = 0;
 
             cityLifePoints = cityMaxLifePoints;
-            cityLifePoints = 10;
             gameDurationSeconds = 0;
             gameDurationSecs = 0.0f;
         }
