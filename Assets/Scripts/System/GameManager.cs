@@ -113,7 +113,7 @@ namespace GameSystem
             nonSavedPeople = 0;
 
             cityLifePoints = cityMaxLifePoints;
-            //cityLifePoints = 300;
+            //cityLifePoints = 20;
             gameDurationSeconds = 0;
             gameDurationSecs = 0.0f;
 
@@ -202,7 +202,9 @@ namespace GameSystem
         IEnumerator FinishGame()
         {
             yield return new WaitForSeconds(1.5f);
+            UIController.instance.TurnOffEndText();
             UltimateFinishGame();
+            
         }
 
         void UltimateFinishGame()

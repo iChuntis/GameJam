@@ -85,14 +85,10 @@ public class GroupOfVolunteers : MonoBehaviour
         }
         if(int_count == 0)
         {
-            anim.SetTrigger("Death");
+            Destroy(gameObject);
         }
     }
 
-    public void Death()
-    {
-        Destroy(gameObject);
-    }
 
     public void Init(in int count , Pick point_B )
     {

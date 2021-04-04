@@ -73,14 +73,25 @@ public class People : Pick
         {
             moving = false;
             GameA.singleton.People(pCount);
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
 
-        if (volounteersCame)
-            if (vol.Count == 0)
+
+
+        if (volounteersCame) {
+            if (vol.Count == 0 || vol == null)
             {
-                animator.SetTrigger("Death");
+                //animator.SetTrigger("Death");
+                Destroy(this.gameObject);
             }
+        }
+        else
+        {
+            if (vol == null)
+            {
+                CanGet = true;
+            }
+        }
     }
 
 }

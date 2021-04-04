@@ -26,7 +26,7 @@ namespace UserInterface
 
             peopleBarImg.fillAmount = currentPeopleBar;
             domeBarImg.fillAmount = currentDomeBar;
-            volunteersVol.text = "Volunteers: 0";
+           
         }
 
         public void SetValues(float peopleBar, float domeBar)

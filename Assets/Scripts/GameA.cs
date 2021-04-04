@@ -14,7 +14,7 @@ public class GameA : MonoBehaviour
 
     [SerializeField] private Text vCount;
 
-    [SerializeField] private Text pCount;
+    //[SerializeField] private Text pCount;
 
 
     [SerializeField] private int peopleCount;
@@ -29,14 +29,13 @@ public class GameA : MonoBehaviour
             peopleCount %= colvo;
         }
         Debug.Log("People COUNT : " + peopleCount);
-        pCount.text = "Population: " + peopleCount;
         GameSystem.GameManager.instance.ChangePeople(people);
     }
 
     public void SetVolounteers(int volounteers)
     {
         volunteersTotalCount += volounteers;
-        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
+        vCount.text = volunteersTotalCount.ToString();
     }
 
     [SerializeField] private int volunteersTotalCount;
@@ -50,7 +49,7 @@ public class GameA : MonoBehaviour
 
     private void Start()
     {
-        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
+        vCount.text = volunteersTotalCount.ToString();
     }
 
     private void Awake()
@@ -76,7 +75,7 @@ public class GameA : MonoBehaviour
         {
             volunteersTotalCount += 1;
         }
-        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
+        vCount.text = volunteersTotalCount.ToString();
         yield return null;
     }
 
@@ -90,7 +89,7 @@ public class GameA : MonoBehaviour
             StartCoroutine(check());
         }
 
-        vCount.text = "Volounteers : " + volunteersTotalCount.ToString();
+        vCount.text = volunteersTotalCount.ToString();
 
         var group = Instantiate(vol_pref , new Vector3(0, 0, -3f), Quaternion.identity);
 

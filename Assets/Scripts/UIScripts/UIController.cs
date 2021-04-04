@@ -59,6 +59,11 @@ namespace UserInterface
             endText.gameObject.SetActive(true);
         } 
 
+        public void TurnOffEndText()
+        {
+            endText.gameObject.SetActive(false);
+        }
+
         public void OnMenuButtonClick()
         {
             menuPanel.SetActive(true);
