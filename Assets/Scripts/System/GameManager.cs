@@ -44,6 +44,9 @@ namespace GameSystem
         int cityLifePoints;
         int nonSavedPeople;
 
+        int gameDurationSeconds;
+        float gameDurationSecs;
+
         public int DomePieces
         {
             get{return domePieces;}
@@ -104,12 +107,25 @@ namespace GameSystem
             nonSavedPeople = 0;
 
             cityLifePoints = cityMaxLifePoints;
+            gameDurationSeconds = 0;
+            gameDurationSecs = 0.0f;
         }
 
         public void Start()
         {
             UIController.instance.SetPopulationNum(populationVol);
             UIController.instance.SetNonSavedNum(nonSavedPeople);
+        }
+
+        void Update()
+        {
+            gameDurationSecs += Time.deltaTime;
+            if (gameDurationSecs >= 1.0f)
+            {
+                gameDurationSecs = 0.0f;
+                gameDurationSeconds += 1;
+                UIController.instance.SetNewTimeResult(gameDurationSeconds);
+            }
         }
 
         
