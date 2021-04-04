@@ -38,13 +38,13 @@ namespace UserInterface
 
         public void SetDomeValue(float domeBar)
         {
-            currentDomeBar = Mathf.Min(0.5f, domeBar);
+            currentDomeBar = Mathf.Min(1.0f, domeBar);
             domeBarImg.fillAmount = currentDomeBar;
         }
 
         public void SetPeopleValue(float peopleBar)
         {
-            currentPeopleBar = Mathf.Min(0.5f, peopleBar);
+            currentPeopleBar = Mathf.Min(1.0f, peopleBar);
             peopleBarImg.fillAmount = currentPeopleBar;
         }
 
