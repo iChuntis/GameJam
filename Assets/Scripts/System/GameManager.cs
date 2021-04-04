@@ -107,6 +107,7 @@ namespace GameSystem
             nonSavedPeople = 0;
 
             cityLifePoints = cityMaxLifePoints;
+            cityLifePoints = 100;
             gameDurationSeconds = 0;
             gameDurationSecs = 0.0f;
         }
@@ -180,9 +181,20 @@ namespace GameSystem
             if (cityLifePoints <= 0)
             {
                 // Город проиграл
-                Time.timeScale = 0;
                 UIController.instance.ShowEndText();
+                StartCoroutine(FinishGame());
             }
+        }
+
+        IEnumerator FinishGame()
+        {
+            yield return new WaitForSeconds(1.5f);
+            UltimateFinishGame();
+        }
+
+        void UltimateFinishGame()
+        {
+            UIController.instance.OnMenuButtonClick();
         }
     }
 }
