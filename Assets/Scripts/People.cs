@@ -23,6 +23,7 @@ public class People : Pick
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
+        transform.rotation = Quaternion.LookRotation(Vector3.zero, Vector3.forward);
     }
 
     [SerializeField] private float probability = 0;
@@ -56,7 +57,9 @@ public class People : Pick
     }
     private void FixedUpdate()
     {
-        if(moving)
+
+        transform.rotation = Quaternion.LookRotation(Vector2.zero, Vector3.forward);
+        if (moving)
         {
             speed = vol.SpeedBack;
             rb.MovePosition(Vector2.MoveTowards(rb.position, Vector2.zero, maxDelta * speed * Time.deltaTime ));
