@@ -195,6 +195,7 @@ namespace GameSystem
         void UltimateFinishGame()
         {
             UIController.instance.OnMenuButtonClick();
+            Messenger<float>.Broadcast("MatchFinished", Time.time);
         }
     }
 }

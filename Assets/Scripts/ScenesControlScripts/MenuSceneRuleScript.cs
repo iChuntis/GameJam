@@ -24,10 +24,12 @@ public class MenuSceneRuleScript : MonoBehaviour
     public void OnShowRecordsClick()
     {
         // ......
+        //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Records",LoadSceneMode.Single);
     }
 
     public void OnExitClick()
     {
+        Messenger.Broadcast("ExitGameFully");
         Application.Quit();
     }
 }
