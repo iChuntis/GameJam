@@ -20,10 +20,15 @@ public class People : Pick
     private float maxDelta = 0.01f;
 
     private float speed;
+
+    [SerializeField] private Animator animator; 
+
+
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
-        transform.rotation = Quaternion.LookRotation(Vector3.zero, Vector3.forward);
+
+        transform.LookAt(new Vector3(0,0,-3));
     }
 
     [SerializeField] private float probability = 0;
@@ -58,7 +63,6 @@ public class People : Pick
     private void FixedUpdate()
     {
 
-        transform.rotation = Quaternion.LookRotation(Vector2.zero, Vector3.forward);
         if (moving)
         {
             speed = vol.SpeedBack;
@@ -73,8 +77,10 @@ public class People : Pick
         }
 
         if (volounteersCame)
-            if(vol.Count == 0)
-                Destroy(gameObject);
+            if (vol.Count == 0)
+            {
+                animator.SetTrigger("Death");
+            }
     }
 
 }
