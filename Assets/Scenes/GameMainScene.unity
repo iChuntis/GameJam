@@ -1812,7 +1812,7 @@ MonoBehaviour:
   colvo: 5
   vCount: {fileID: 1845593823}
   peopleCount: 0
-  volunteersTotalCount: 3
+  volunteersTotalCount: 60
   vol_pref: {fileID: 4774023502327204636, guid: 880d1203a93789742ac67623302ba3c3, type: 3}
 --- !u!114 &456226856
 MonoBehaviour:
@@ -8001,7 +8001,7 @@ MonoBehaviour:
   domePieces: 21
   shieldObject: {fileID: 2562140231705037126, guid: 2ff5fa4ccdfda2f4985ee91a3cc69980, type: 3}
   populationVol: 6
-  cityMaxLifePoints: 1600
+  cityMaxLifePoints: 30000
 --- !u!82 &813357544
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8016,7 +8016,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.205
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

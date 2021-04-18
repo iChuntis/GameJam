@@ -119,7 +119,7 @@ namespace GameSystem
             //Debug.Log("GameSystem.GameManager.instance.NonSavedPeople " + GameSystem.GameManager.instance.NonSavedPeople);
             int cnt = GameObject.FindObjectsOfType<People>().Length;
             //Debug.Log("Cnt is: " + cnt + "  people spawn " + peopleSpawn);
-            if (cnt <= 2)
+            if (cnt <= 6)
             {
                 cityController.SetPlaceToSavePeople(peopleSpawn);
             }
